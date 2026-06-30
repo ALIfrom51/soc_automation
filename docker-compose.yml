@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  n8n:
+    build: .
+    container_name: n8n_soc
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      # Basic auth (change these)
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=${N8N_USER:-admin}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_PASSWORD:-changeme}
+
+      # n8n config
+      - N8N_HOST=${N8N_HOST:-localhost}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=${N8N_PROTOCOL:-http}
+      - WEBHOOK_URL=${WEBHOOK_URL:-http://localhost:5678/}
+
+      # Timezone
+      - GENERIC_TIMEZONE=Africa/Algiers
+
+      # Encryption key for stored credentials
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-change_this_secret_key}
+
+      # External API keys (used in n8n credentials)
+      - VIRUSTOTAL_API_KEY=${VIRUSTOTAL_API_KEY}
+      - ABUSEIPDB_API_KEY=${ABUSEIPDB_API_KEY}
+      - SHODAN_API_KEY=${SHODAN_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=${AWS_REGION:-us-east-1}
+
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./workflows:/home/node/.n8n/workflows
+
+    networks:
+      - soc_network
+
+volumes:
+  n8n_data:
+
+networks:
+  soc_network:
+    driver: bridge
