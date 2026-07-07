@@ -19,7 +19,7 @@ services:
       - WEBHOOK_URL=${WEBHOOK_URL:-http://localhost:5678/}
 
       # Timezone
-      - GENERIC_TIMEZONE=Africa/Morocco
+      - GENERIC_TIMEZONE=Africa/Casablanca
 
       # Encryption key for stored credentials
       - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
