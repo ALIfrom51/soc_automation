@@ -1,7 +1,6 @@
-version: "3.8"
-
 services:
   n8n:
+    image: ghcr.io/alifrom51/n8n-soc:latest
     build: .
     container_name: n8n_soc
     restart: unless-stopped
@@ -20,7 +19,7 @@ services:
       - WEBHOOK_URL=${WEBHOOK_URL:-http://localhost:5678/}
 
       # Timezone
-      - GENERIC_TIMEZONE=Africa/Algiers
+      - GENERIC_TIMEZONE=Africa/Morocco
 
       # Encryption key for stored credentials
       - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-change_this_secret_key}
@@ -29,7 +28,7 @@ services:
       - VIRUSTOTAL_API_KEY=${VIRUSTOTAL_API_KEY}
       - ABUSEIPDB_API_KEY=${ABUSEIPDB_API_KEY}
       - SHODAN_API_KEY=${SHODAN_API_KEY}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
       - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
       - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
